@@ -1,0 +1,119 @@
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>{% block title %} Palm Spring Blog {% endblock %}</title>
+  <meta name="Blog" content="Blog web Site">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="teopinillo" content="porfolio">
+  <link href="{% static 'blog/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <!--first row for error messages-->
+    <div class="row">
+      <div class="col-sm">
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+
+    <!--second row for nav bar-->
+    <div class="row">
+      <div class="col">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top">
+          <a class="navbar-brand" href="#">Palm Spring Blog</a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+            <spam class="navbar-toggler-icon ">
+
+            </spam>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}"> Home </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'post_new' %}">New Post</a>
+              </li>
+              <!--li class="nav-item">
+                <a class="nav-link" href="#">Menu 3</a>
+              </li-->              
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">
+                  <span class="glyphicon glyphicon-log-out">
+
+                  </span> Welcome
+                  {{ user.username }} | Log Out</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M5.962 2.513a.75.75 0 01-.475.949l-.816.272a.25.25 0 00-.171.237V21.25c0 .138.112.25.25.25h14.5a.25.25 0 00.25-.25V3.97a.25.25 0 00-.17-.236l-.817-.272a.75.75 0 01.474-1.424l.816.273A1.75 1.75 0 0121 3.97v17.28A1.75 1.75 0 0119.25 23H4.75A1.75 1.75 0 013 21.25V3.97a1.75 1.75 0 011.197-1.66l.816-.272a.75.75 0 01.949.475z"></path><path fill-rule="evenodd" d="M7 1.75C7 .784 7.784 0 8.75 0h6.5C16.216 0 17 .784 17 1.75v1.5A1.75 1.75 0 0115.25 5h-6.5A1.75 1.75 0 017 3.25v-1.5zm1.75-.25a.25.25 0 00-.25.25v1.5c0 .138.112.25.25.25h6.5a.25.25 0 00.25-.25v-1.5a.25.25 0 00-.25-.25h-6.5z"></path></svg>
+                  </span>
+                  
+                  Sign Up</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">
+                  <!--login icon from Octicons-->
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M22 4.25a.75.75 0 00-1.5 0v15a.75.75 0 001.5 0v-15zm-9.72 14.28a.75.75 0 11-1.06-1.06l4.97-4.97H1.75a.75.75 0 010-1.5h14.44l-4.97-4.97a.75.75 0 011.06-1.06l6.25 6.25a.75.75 0 010 1.06l-6.25 6.25z"></path></svg>
+                  </span> Login</a>
+                
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!--navbar-->
+
+    <!-- content block -->
+    <div class="row">
+      <div class="col">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small  pt-4 fixed-bottom footer-dark">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3 footer-bg">
+        © 2020 Copyright: <a href="https://mdbootstrap.com/"> teopinillo@gmail.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </div>
+  <!--container-->
+
+
+<script src="js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
